@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modifier le mot de passe</title>
+    <link rel="stylesheet" href="mdps.css">
+    <script src="login.js"></script>
+</head>
+<body>
+    <button onclick="window.location.href='test2.html'">Changer le thème</button>
+
+  <h2>Modifier le mot de passe</h2>
+   
+  <form id="change-password-form">
+    <label for="username">Nom d'utilisateur:</label>
+    <input type="text" id="username" name="username" required>
+    <br>
+    <label for="password">Nouveau mot de passe:</label>
+    <input type="password" id="new-password" name="new-password" required>
+    <br>
+    <input type="submit" value="Changer le mot de passe">
+  </form>
+  
+  <p id="loggedInUser"></p>
+
+  <script>
+    const changePasswordForm = document.getElementById('change-password-form');
+    changePasswordForm.addEventListener('submit', handleChangePassword);
+
+    function handleChangePassword(event) {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      const newPassword = document.getElementById('new-password').value;
+
+      const existingUsers = localStorage.getItem('users');
+      const users = existingUsers ? JSON.parse(existingUsers) : [];
+
+      const user = users.find(user => user.username === username);
+      if (user) {
+        user.password = newPassword;
+        localStorage.setItem('users', JSON.stringify(users));
+        alert('Mot de passe modifié avec succès!');
+        changePasswordForm.reset();
+      } else {
+        alert('Nom d\'utilisateur incorrect. Veuillez créer un compte ou vérifier vos informations.');
+      }
+    }
+
+    function updateLoggedInUser(username) {
+      sessionStorage.setItem('loggedInUser', username);
+      const loggedInUserElement = document.getElementById('loggedInUser');
+      if (loggedInUserElement) {
+        loggedInUserElement.textContent = `Connecté en tant que ${username}`;
+      }
+    }
+  </script>
+</body>
+</html>

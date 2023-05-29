@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin espace</title>
+  <style>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: gainsboro;
+    color: black;
+    background-image: url('black.jpg'); /* Remplacez par le chemin de votre image */
+    background-size: cover;
+    background-position: center;
+    animation: backgroundAnimation 20s infinite linear;
+  }
+
+  @keyframes backgroundAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  th,
+  td {
+    border: 6px solid blue;
+    padding: 10px;
+    text-align: left;
+  }
+
+  th {
+    background-color: blue;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-right: 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    background-color: white;
+    color: black;
+    border: none;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background-color: blue;
+  }
+</style>
+
+  </style>
+
+  
+</head>
+<body>
+	<div class="animated-background"></div>
+  <h1>Liste des comptes creés  </h1>
+
+  <table>
+    <tr>
+      <th>Nom d'utilisateur</th>
+      <th>Mot de passe</th>
+      <th>options</th>
+    </tr>
+    <tbody id="user-list"></tbody>
+  </table>
+
+  <script>
+  // SÃ©lectionne l'Ã©lÃ©ment de la liste des utilisateurs dans le document HTML
+  const userList = document.getElementById('user-list');
+
+  // RÃ©cupÃ¨re les utilisateurs existants depuis le stockage local
+  const existingUsers = localStorage.getItem('users');
+
+  // Si des utilisateurs existent, les parse depuis le format JSON en tableau, sinon initialise un tableau vide
+  const users = existingUsers ? JSON.parse(existingUsers) : [];
+
+  // Fonction pour rendre visuellement un utilisateur dans la liste
+  function renderUser(user) {
+    // CrÃ©e les Ã©lÃ©ments HTML nÃ©cessaires pour afficher les informations de l'utilisateur
+    const row = document.createElement('tr');
+    const usernameCell = document.createElement('td');
+    const passwordCell = document.createElement('td');
+    const actionsCell = document.createElement('td');
+    const passwordInput = document.createElement('input');
+    const showPasswordCheckbox = document.createElement('input');
+    const saveButton = document.createElement('button');
+    const deleteButton = document.createElement('button');
+
+    // DÃ©finit le contenu des Ã©lÃ©ments HTML avec les informations de l'utilisateur
+    usernameCell.textContent = user.username;
+    passwordInput.type = 'password';
+    passwordInput.value = user.password;
+
+    // DÃ©finit les propriÃ©tÃ©s des Ã©lÃ©ments HTML pour la gestion des Ã©vÃ©nements
+    showPasswordCheckbox.type = 'checkbox';
+    showPasswordCheckbox.addEventListener('change', () => togglePasswordVisibility(passwordInput, showPasswordCheckbox.checked));
+    saveButton.textContent = 'Enregistrer';
+    saveButton.className = 'button';
+    saveButton.addEventListener('click', () => handleSave(user, passwordInput.value));
+    deleteButton.textContent = 'Supprimer';
+    deleteButton.className = 'button';
+    deleteButton.addEventListener('click', () => handleDelete(user));
+
+    // Ajoute les Ã©lÃ©ments HTML dans la structure de la liste
+    passwordCell.appendChild(passwordInput);
+    passwordCell.appendChild(showPasswordCheckbox);
+    actionsCell.appendChild(saveButton);
+    actionsCell.appendChild(deleteButton);
+    row.appendChild(usernameCell);
+    row.appendChild(passwordCell);
+    row.appendChild(actionsCell);
+    userList.appendChild(row);
+  }
+
+  // Fonction pour afficher tous les utilisateurs dans la liste
+  function renderUserList() {
+    // Vide la liste existante pour Ã©viter les doublons
+    userList.innerHTML = '';
+
+    // Parcourt tous les utilisateurs et les rend visuellement un par un
+    users.forEach(user => {
+      renderUser(user);
+    });
+  }
+
+  // Fonction pour gÃ©rer la sauvegarde d'un mot de passe modifiÃ©
+  function handleSave(user, newPassword) {
+    // Met Ã  jour le mot de passe de l'utilisateur dans le tableau
+    user.password = newPassword;
+
+    // Enregistre le tableau d'utilisateurs dans le stockage local sous forme de JSON
+    localStorage.setItem('users', JSON.stringify(users));
+
+    // Affiche une alerte indiquant que le mot de passe a ete modifiÃ© avec succes
+    alert('compte enregister avec succes!');
+  }
+
+  // Fonction pour gÃ©rer la suppression d'un utilisateur
+  function handleDelete(user) {
+    // Demande une confirmation avant de supprimer l'utilisateur
+    const confirmDelete = confirm('etes -vous sur  de vouloir supprimer ce compte?');
+
+    // Si la suppression est confirmÃ©e
+    if (confirmDelete) {
+      // Recherche l'index de l'utilisateur dans le tableau
+      const index = users.indexOf(user);
+
+      // Si l'utilisateur est trouvÃ© dans le tableau, le supprime
+      if (index > -1) {
+        users.splice(index, 1);
+
+        // Met Ã  jour le stockage local avec le nouveau tableau d'utilisateurs
+        localStorage.setItem('users', JSON.stringify(users));
+
+        // Affiche une alerte indiquant que le compte a Ã©tÃ© supprimÃ© avec succÃ¨s
+        alert('Compte supprimÃ© avec succÃ¨s!');
+
+        // Si tous les comptes ont Ã©tÃ© supprimÃ©s, propose de crÃ©er un nouveau compte
+        if (users.length === 0) {
+          const createNewUser = confirm('Vous avez supprimÃ© tous les comptes. Voulez-vous crÃ©er un autre compte?');
+          if (createNewUser) {
+            // Redirige vers la page de crÃ©ation de compte
+            window.location.href = 'signup.html';
+          }
+        }
+
+        // RÃ©affiche la liste mise Ã  jour
+        renderUserList();
+      }
+    }
+  }
+
+  // Fonction pour basculer la visibilitÃ© du mot de passe
+  function togglePasswordVisibility(passwordInput, showPassword) {
+    if (showPassword) {
+      passwordInput.type = 'text';
+    } else {
+      passwordInput.type = 'password';
+    }
+  }
+
+  // Affiche la liste des utilisateurs au chargement de la page
+  renderUserList();
+</script>
+
+</body>
+</html>

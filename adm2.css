@@ -1,0 +1,162 @@
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: url(img8.jpg) no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0.7;
+  }
+  
+  body {
+    font-family: sans-serif;
+  }
+   
+/*=======================Container=====================================================*/
+.login-container{
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center; 
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5),-5px -5px 10px rgba(245,245,245,0.12);
+    width:300px;
+    height:450px;
+    background: #FFFFFF; 
+    color:black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+  }
+  /*========================input section================================================*/
+  .input-container{
+    display: flex;
+    align-items: center;
+    justify-content: start; 
+    margin: 35px 0;
+    position: relative;
+    padding:0;
+  }
+  label{
+    position: absolute;
+    top: 8px;
+    left: 30px;
+    background: none; 
+    transition: 200ms ease-out;
+    color: #0400ff;
+    font-variant: smallcaps; 
+    font-weight: bold;
+    pointer-events: none;
+    letter-spacing: 1px; 
+  }
+  input{
+    position: relative;
+    border: none;
+    background: none;
+    box-shadow: inset 5px 5px 5px rgba(10,10,10,0.7),inset -5px -5px 10px rgba(50,50,50,0.6);
+    outline: none; 
+    padding: 10px 10px 10px 35px;
+    border-radius: 25px;
+    box-sizing: border-box;
+    width: 100%;
+    color: black;
+    transition: 300ms linear;
+  }
+  input + span{
+    position: absolute;
+    display: inline-block;
+    width: 0%;
+    height: 2px;
+    border-radius: 10px;
+    margin: 0;
+    top:110%;
+    left: 10px;
+    pointer-events: none;
+    transition: all 300ms linear;
+  }
+  /*======================================================================================*/
+  
+  /* 
+  =====================invalid section=============================================
+  */
+  input:where(:hover,:focus):invalid + span{
+    width: 90%;
+    background: rgb(243, 45, 45);
+  }
+  input:focus:invalid{
+    border-bottom: 1px solid #ff2020;
+  }
+  input:is(:hover, :focus):invalid ~ label{
+      top: -26px;
+      left : 25px;
+      color: crimson;
+  }
+  .up{
+    top: -26px;
+    left: 25px;
+    transition: all 0.2s;
+    color: crimson;
+  }
+  input:is(:hover, :focus):invalid ~ span[tool-tip]::after{
+    content: attr(tool-tip); 
+    font-size: 10px;
+    color: crimson;
+    position: absolute;
+    left: -10px;
+    bottom:-60%;
+    margin: 0;
+    font-weight: bold;
+    font-variant: smallcaps; 
+    letter-spacing: 2px;
+    white-space: nowrap; 
+    transform: scale(1.1,1);
+    transition: transform 200ms ease-out,bottom 200ms ease-out;
+  }
+  
+  /*
+    =========================Valid section===============================================
+  */
+  input:valid{
+    border-bottom: 1px solid #ff2020;
+  }
+  input:valid + span{
+    background-color: 1px solid #ff2020;
+  }
+  input:valid ~ label{
+    top: -26px;
+    left: 25px;;
+    color: #ff2020;
+  }
+  
+  
+  /*
+   ==========================Submit section============================================
+  */
+  form button{
+    border: none; 
+    border-radius: 20px;
+    background: none; 
+    box-shadow: inset 5px 5px 10px rgba(50,50,50,0.9),inset -5px -5px 10px rgba(10,10,10,0.6);
+    padding: 15px 20px;
+    color: black;
+    font-variant: smallcaps; 
+    font-weight: bold;
+    transition: 200ms ease-out;
+    letter-spacing: 4.5px;
+    margin: 20px auto;
+  }
+  form button:hover{
+     box-shadow: inset 5px 5px 10px rgba(10,10,10,0.9),inset -5px -5px 10px rgba(50,50,50,0.6);
+  }
+  .h11 {
+    color: black;
+    text-align: center;
+    top: -500px;
+  }
+  

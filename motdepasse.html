@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <title>Modification du mot de passe</title>
+	<style>
+	body {
+  font-family: Arial, sans-serif;
+  background-color: transparent;
+  background-image: url("img8.gpg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #fff; /* Couleur du texte */
+}
+
+form {
+  width: 300px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.8); /* Fond du formulaire transparent */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Centrer le contenu du formulaire */
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+button[type="submit"] {
+  background-color: #ff0000;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.error-message {
+  color: #ff0000;
+  margin-bottom: 10px;
+}
+
+	</style>
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+   <!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: transparent;
+      background-image: url("img8.gpg.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    button {
+      color: #fff;
+      background-color: #ff0000;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="window.location.href='test2.html'">Changer le thème</button>
+</body>
+</html>
+
+</head>
+<body>
+  <h1>Modification du mot de passe</h1>
+  <form onsubmit="modifierMotDePasse(); return false;">
+    <label for="username">username:</label>
+    <input type="text" id="pseudo" required><br>
+    <label for="ancienMotDePasse">Ancien mot de passe:</label>
+    <input type="password" id="ancienMotDePasse" required><br>
+    <label for="nouveauMotDePasse">Nouveau mot de passe:</label>
+    <input type="password" id="nouveauMotDePasse" required><br>
+    <button type="submit">Modifier</button>
+  </form>
+
+  <script>
+   function modifierMotDePasse() {
+  // Récupérer le tableau de profils depuis le stockage local
+  var profils_session = localStorage.getItem("profils");
+
+  // Si le tableau de profils n'existe pas encore, initialiser un tableau vide
+  var profils = profils_session ? JSON.parse(profils_session) : [];
+
+  // Récupérer les valeurs saisies dans le formulaire
+  var pseudo = document.getElementById("username").value;
+  var ancienMotDePasse = document.getElementById("ancienMotDePasse").value;
+  var nouveauMotDePasse = document.getElementById("nouveauMotDePasse").value;
+
+  // Parcourir les profils et trouver le profil correspondant au pseudo saisi
+  for (var i = 0; i < profils.length; i++) {
+    if (profils[i].username=== username) {
+      // Vérifier si l'ancien mot de passe correspond
+      if (profils[i].password === ancienMotDePasse) {
+        // Modifier le mot de passe du profil
+        profils[i].password = nouveauMotDePasse;
+
+        // Mettre à jour le tableau de profils dans le stockage local
+        localStorage.setItem("profils", JSON.stringify(profils));
+
+        alert("Mot de passe modifié pour le pseudo " + username);
+        return;
+      } else {
+        alert("L'ancien mot de passe est incorrect pour le pseudo " + username);
+        return;
+      }
+    }
+  }
+
+  alert("Pseudo non trouvé: " + username);
+}
+
+  </script>
+	<script>
+    function changeBackgroundColor() {
+      var body = document.querySelector('body');
+      var currentColor = body.style.backgroundColor;
+      
+      if (currentColor === 'white') {
+        body.style.backgroundColor = 'DimGrey';
+      } else {
+        body.style.backgroundColor = 'white';
+      }
+    }
+  </script>
+</body>
+</html>

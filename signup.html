@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <body>
+        <button onclick="window.location.href='index.html'">Revenir a la page principale</button>
+        <button onclick="window.location.href='login.html'">Allez vous connecter aprés l'inscription</button>
+        
+      </body>
+    <title>Inscription</title>
+    <link rel="stylesheet" type="text/css" href="login.css">
+    <script src="signup.js"></script>
+</head>
+<body>
+    
+    <h2>Inscription</h2>
+    <form id="signupForm" onsubmit="signup(event)">
+        <label for="username">Nom d'utilisateur:</label>
+        <input type="text" id="username" required><br>
+
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password" required><br>
+
+        <label for="confirmPassword">Confirmer le mot de passe:</label>
+        <input type="password" id="confirmPassword" required><br>
+        <input type="submit" value="S'inscrire">
+        
+        
+    </form>
+ 
+
+</body>
+</html>

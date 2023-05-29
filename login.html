@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Connexion</title>
+    
+    <link rel="stylesheet" href="login.css">
+    <script src="login.js"></script>
+</head>
+<body>
+  <button onclick="window.location.href='index.html'">Revenir a la page principale</button>
+</body>
+    <h2>Connexion</h2>
+   
+    <form id="login-form">
+        <label for="username">Nom d'utilisateur:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <input type="submit" value="Se connecter">
+    </form>
+    <p id="loggedInUser"></p>
+
+
+    
+
+    <script>
+      const loginForm = document.getElementById('login-form');
+      loginForm.addEventListener('submit', handleLogin);
+  
+      function handleLogin(event) {
+          event.preventDefault();
+          const username = document.getElementById('username').value;
+          const password = document.getElementById('password').value;
+  
+          const existingUsers = localStorage.getItem('users');
+          const users = existingUsers ? JSON.parse(existingUsers) : [];
+  
+          const user = users.find(user => user.username === username && user.password === password);
+          if (user) {
+              alert('Connexion réussie!');
+              loginForm.reset();
+              updateLoggedInUser(user.username); // Mettre à jour l'utilisateur connecté
+              window.location.href = "pageprincipale.html"; // Rediriger vers la page principale
+          } else {
+              alert('Nom d\'utilisateur ou mot de passe incorrect. Veuillez créer un compte.');
+              // Rediriger vers la page de création de compte ou autre action
+          }
+      }
+  
+      function updateLoggedInUser(username) {
+          sessionStorage.setItem('loggedInUser', username);
+          const loggedInUserElement = document.getElementById('loggedInUser');
+          if (loggedInUserElement) {
+              loggedInUserElement.textContent = `Connecté en tant que ${username}`;
+          }
+      }
+  </script>
+  
+      
+</body>
+</html>
